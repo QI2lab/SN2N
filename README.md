@@ -54,11 +54,12 @@ Our SN2N is fully competitive with the supervised learning methods and overcomes
 ## 🔧 Installation
 
 ### Tested platform
-  - Python = 3.7.6, Pytorch = 1.12.0 (`Win 10`, `128 GB RAM`, `NVIDIA RTX 4090 24 GB`, `CUDA 11.6`)
+  - Python = 3.12, PyTorch > 2.0 (`CUDA > 12.0 and < 12.8`)
 
 ### Dependencies 
-  - Python >= 3.6
-  - PyTorch >= 1.10
+  - Python == 3.12
+  - PyTorch > 2.0
+  - CUDA > 12.0 and < 12.8
     
 ### Instruction
 
@@ -69,15 +70,24 @@ Our SN2N is fully competitive with the supervised learning methods and overcomes
     cd SN2N    
     ```
 
-2. Create a virtual environment and install PyTorch and other dependencies. Please select the correct Pytorch version that matches your CUDA version from [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/). 
-
-    Users can set up the environment directly by installing the packages listed in the (**requirements.txt**) file. The packages required by the environment have also been uploaded to the requirements.
+2. Create a virtual environment and install dependencies from `pyproject.toml`.
 
     ```bash
-    $ conda create -n SN2N python=3.7.6
+    $ conda create -n SN2N python=3.12
     $ conda activate SN2N
-    
-    $ pip install -r requirements.txt
+
+    # install runtime dependencies from pyproject.toml
+    $ pip install -e .
+
+    # optional: enable development hooks (ruff + pre-commit)
+    $ pip install -e .[dev]
+    $ pre-commit install
+    ```
+
+3. Install a CUDA-enabled PyTorch wheel matching your environment (CUDA > 12.0 and < 12.8), then verify:
+
+    ```bash
+    $ python -c "import torch; print(torch.__version__, torch.version.cuda)"
     ```
 ## 🚀 Overall
 

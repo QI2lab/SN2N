@@ -1,1 +1,8 @@
 *.pyc
+.codex/*
+.idea/*
+.vscode/*
+*.tif
+*.tiff
+*.txt
+*.pth

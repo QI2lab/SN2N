@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from SN2N.inference import Predictor2D
-from SN2N.get_options import Predict2D
-    
 
-if __name__ == '__main__':
+from SN2N.get_options import Predict2D
+from SN2N.inference import Predictor2D
+
+if __name__ == "__main__":
     ##Step 1: Define custom parameters.
     """
     -----Parameters------
@@ -20,25 +20,29 @@ if __name__ == '__main__':
         1: Predict the results of the models provided by the user under 
         the given model_path on the Img_path provided by the user.
     """
-    
-    img_path = 'M:\HGS\simulate\DATA\SN2N/raw2/data'
-    model_path = 'M:\HGS\simulate\DATA\SN2N/raw2\models'
-    infer_mode = '1'
-    
+
+    img_path = "M:/HGS/simulate/DATA/SN2N/raw2/data"
+    model_path = "M:/HGS/simulate/DATA/SN2N/raw2/models"
+    infer_mode = "1"
+
     Predict2D_args = [
-        '--img_path', img_path,
-        '--model_path', model_path,
-        '--infer_mode', infer_mode
+        "--img_path",
+        img_path,
+        "--model_path",
+        model_path,
+        "--infer_mode",
+        infer_mode,
     ]
-    
-    
+
     if len(sys.argv) > 1:
         args = Predict2D()
     else:
         args = Predict2D(Predict2D_args)
-    
-    print("Parsed arguments:", args)     
-    
+
+    print("Parsed arguments:", args)
+
     ##Step 2: Execute predicting.
-    p = Predictor2D(img_path = args.img_path, model_path = args.model_path, infer_mode = args.infer_mode)
+    p = Predictor2D(
+        img_path=args.img_path, model_path=args.model_path, infer_mode=args.infer_mode
+    )
     p.execute()

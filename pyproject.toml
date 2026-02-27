@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SN2N"
+version = "0.3.2"
+description = "Self-inspired Noise2Noise for microscopy denoising."
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "imageio>=2.34",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "packaging>=23.2",
+  "Pillow>=10.0",
+  "PyWavelets>=1.5",
+  "scikit-image>=0.22",
+  "scipy>=1.11",
+  "tifffile>=2024.2.12",
+  "torch>2.0",
+  "tqdm>=4.66",
+  "typing_extensions>=4.12",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit>=4.5.0",
+  "ruff>=0.15.4",
+]
+cuda = [
+  "nvidia-cuda-runtime-cu12>12.0,<12.8; platform_system == 'Linux'",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["SN2N*"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"

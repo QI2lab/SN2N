@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import sys
+
 from SN2N.datagen import generator2D
 from SN2N.get_options import datagen2D
-    
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ##Step 1: Define custom parameters.
     """
     -----Parameters------
@@ -33,29 +33,39 @@ if __name__ == '__main__':
         
     ======Other parameters do not require modification; for details, refer to SN2N.get_options.========
     """
-    
+
     img_path = "D:/SN2N-main/examples/denoising2D/data/raw_data"
-    P2Pmode = '1'
-    P2Pup = '1'
-    BAmode = '2'
-    SWsize = '64'
-    
+    P2Pmode = "1"
+    P2Pup = "1"
+    BAmode = "2"
+    SWsize = "64"
+
     datagen2D_args = [
-        '--img_path', img_path,
-        '--P2Pmode', P2Pmode,
-        '--P2Pup', P2Pup,
-        '--BAmode', BAmode,
-        '--SWsize', SWsize
+        "--img_path",
+        img_path,
+        "--P2Pmode",
+        P2Pmode,
+        "--P2Pup",
+        P2Pup,
+        "--BAmode",
+        BAmode,
+        "--SWsize",
+        SWsize,
     ]
-    
+
     if len(sys.argv) > 1:
         args = datagen2D()
     else:
         args = datagen2D(datagen2D_args)
-    
-    print("Parsed arguments:", args) 
-    
-    
+
+    print("Parsed arguments:", args)
+
     ##Step 2: Execute data generation.
-    d = generator2D(img_path=args.img_path, P2Pmode = args.P2Pmode, P2Pup = args.P2Pup, BAmode = args.BAmode, SWsize = args.SWsize)
+    d = generator2D(
+        img_path=args.img_path,
+        P2Pmode=args.P2Pmode,
+        P2Pup=args.P2Pup,
+        BAmode=args.BAmode,
+        SWsize=args.SWsize,
+    )
     d.execute()

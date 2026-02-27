@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from SN2N.inference_32bit import Predictor3D
-from SN2N.get_options import Predict3D
-    
 
-if __name__ == '__main__':
+from SN2N.get_options import Predict3D
+from SN2N.inference_32bit import Predictor3D
+
+if __name__ == "__main__":
     ##Step 1: Define custom parameters.
     """
     -----Parameters------
@@ -23,29 +23,38 @@ if __name__ == '__main__':
         Overlap shape in 3D stitching prediction.
         {default: '2, 256, 256'}
     """
-    
-    img_path ='M:/HGS/3d_MT_simulate/SN2N-3D/cjj/Dataset'
-    #img_path ='C:\HGS/3D-image\he\inference_data'
-    #img_path ='C:\HGS/3D-image/405/t-inferencedata'
-    model_path = 'M:/HGS/3d_MT_simulate/SN2N-3D/cjj\models'
-    #model_path = 'C:\HGS/3D-image\he/achieved_models\sn2n/0.1-2e-4-non-normalize'
-    infer_mode = '1'
-    overlap_shape = '2,256,256'
-    
+
+    img_path = "M:/HGS/3d_MT_simulate/SN2N-3D/cjj/Dataset"
+    # img_path ='C:\HGS/3D-image\he\inference_data'
+    # img_path ='C:\HGS/3D-image/405/t-inferencedata'
+    model_path = "M:/HGS/3d_MT_simulate/SN2N-3D/cjj/models"
+    # model_path = 'C:\HGS/3D-image\he/achieved_models\sn2n/0.1-2e-4-non-normalize'
+    infer_mode = "1"
+    overlap_shape = "2,256,256"
+
     Predict3D_args = [
-        '--img_path', img_path,
-        '--model_path', model_path,
-        '--infer_mode', infer_mode,
-        '--overlap_shape', overlap_shape
+        "--img_path",
+        img_path,
+        "--model_path",
+        model_path,
+        "--infer_mode",
+        infer_mode,
+        "--overlap_shape",
+        overlap_shape,
     ]
-    
+
     if len(sys.argv) > 1:
         args = Predict3D()
     else:
         args = Predict3D(Predict3D_args)
-    
-    print("Parsed arguments:", args)   
-    
+
+    print("Parsed arguments:", args)
+
     ##Step 2: Execute predicting.
-    p = Predictor3D(img_path = args.img_path, model_path = args.model_path, infer_mode = args.infer_mode, overlap_shape = args.overlap_shape)
+    p = Predictor3D(
+        img_path=args.img_path,
+        model_path=args.model_path,
+        infer_mode=args.infer_mode,
+        overlap_shape=args.overlap_shape,
+    )
     p.execute()

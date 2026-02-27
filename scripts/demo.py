@@ -17,7 +17,9 @@ def check_gpu_availability():
 
         # 显示当前使用的GPU
         current_device = torch.cuda.current_device()
-        print(f"当前使用的GPU: {current_device} ({torch.cuda.get_device_name(current_device)})")
+        print(
+            f"当前使用的GPU: {current_device} ({torch.cuda.get_device_name(current_device)})"
+        )
 
         # 显示CUDA版本
         print(f"CUDA版本: {torch.version.cuda}")

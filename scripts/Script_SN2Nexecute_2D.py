@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
+
 from SN2N.get_options import execute2D
 from SN2N.SN2Nexecute import SN2Nexecute_2D
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ##Step 1: Define custom parameters.
     """
     -----Parameters------
@@ -54,44 +55,50 @@ if __name__ == '__main__':
     ======Other parameters do not require modification; for details, refer to SN2N.get_options.========
     
     """
-    
-    img_path = 'C:/Users/qqq/Desktop/SN2N-V0.3.0/examples/denoising2D/data/raw_data'
-    P2Pmode = '1'
-    P2Pup = '1'
-    BAmode = '1'
-    SWsize = '64' 
-    sn2n_loss = '1'
-    bs = '32'
-    lr = '2e-4'
-    epochs = '50'
-    model_path = 'C:/Users/qqq/Desktop/SN2N-V0.3.0/examples/denoising2D/data/models'
-    infer_mode = '0'
-    
-    
-    execute2D_args = [
-        '--img_path', img_path,
-        '--P2Pmode', P2Pmode,
-        '--P2Pup', P2Pup,
-        '--BAmode', BAmode,
-        '--SWsize', SWsize,
-        '--sn2n_loss', sn2n_loss,
-        '--bs', bs,
-        '--lr', lr,
-        '--epochs', epochs,
-        '--model_path', model_path,
-        '--infer_mode', infer_mode
-    ]
 
+    img_path = "C:/Users/qqq/Desktop/SN2N-V0.3.0/examples/denoising2D/data/raw_data"
+    P2Pmode = "1"
+    P2Pup = "1"
+    BAmode = "1"
+    SWsize = "64"
+    sn2n_loss = "1"
+    bs = "32"
+    lr = "2e-4"
+    epochs = "50"
+    model_path = "C:/Users/qqq/Desktop/SN2N-V0.3.0/examples/denoising2D/data/models"
+    infer_mode = "0"
+
+    execute2D_args = [
+        "--img_path",
+        img_path,
+        "--P2Pmode",
+        P2Pmode,
+        "--P2Pup",
+        P2Pup,
+        "--BAmode",
+        BAmode,
+        "--SWsize",
+        SWsize,
+        "--sn2n_loss",
+        sn2n_loss,
+        "--bs",
+        bs,
+        "--lr",
+        lr,
+        "--epochs",
+        epochs,
+        "--model_path",
+        model_path,
+        "--infer_mode",
+        infer_mode,
+    ]
 
     if len(sys.argv) > 1:
         args = execute2D()
     else:
         args = execute2D(execute2D_args)
-    
-    print("Parsed arguments:", args) 
-    
-    ##Step 2: Executing.    
+
+    print("Parsed arguments:", args)
+
+    ##Step 2: Executing.
     SN2Nexecute_2D(args)
-    
-    
-   

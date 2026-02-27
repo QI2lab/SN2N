@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
+
 from SN2N.datagen import generator3D
 from SN2N.get_options import datagen3D
-    
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ##Step 1: Define custom parameters.
     """
     -----Parameters------
@@ -34,33 +34,43 @@ if __name__ == '__main__':
         
     ======Other parameters do not require modification; for details, refer to SN2N.get_options.========
     """
-    
-    img_path = 'M:\HGS\simulate\DATA\SN2N_3D/raw/data/'
-    P2Pmode = '1'
-    P2Pup = '1'
-    BAmode = '1'
-    SWsize = '128'
-    SWfilter = '8'
-    
-    
+
+    img_path = "M:/HGS/simulate/DATA/SN2N_3D/raw/data/"
+    P2Pmode = "1"
+    P2Pup = "1"
+    BAmode = "1"
+    SWsize = "128"
+    SWfilter = "8"
+
     datagen3D_args = [
-        '--img_path', img_path,
-        '--P2Pmode', P2Pmode,
-        '--P2Pup', P2Pup,
-        '--BAmode', BAmode,
-        '--SWsize', SWsize,   
-        '--SWfilter', SWfilter
+        "--img_path",
+        img_path,
+        "--P2Pmode",
+        P2Pmode,
+        "--P2Pup",
+        P2Pup,
+        "--BAmode",
+        BAmode,
+        "--SWsize",
+        SWsize,
+        "--SWfilter",
+        SWfilter,
     ]
-    
+
     if len(sys.argv) > 1:
         args = datagen3D()
     else:
         args = datagen3D(datagen3D_args)
-    
-    print("Parsed arguments:", args) 
-    
-    
-    ##Step 2: Execute data generation.
-    d = generator3D(img_path=args.img_path, P2Pmode = args.P2Pmode, P2Pup = args.P2Pup, BAmode = args.BAmode, SWsize = args.SWsize, SWfilter = args.SWfilter)
-    d.execute()
 
+    print("Parsed arguments:", args)
+
+    ##Step 2: Execute data generation.
+    d = generator3D(
+        img_path=args.img_path,
+        P2Pmode=args.P2Pmode,
+        P2Pup=args.P2Pup,
+        BAmode=args.BAmode,
+        SWsize=args.SWsize,
+        SWfilter=args.SWfilter,
+    )
+    d.execute()
