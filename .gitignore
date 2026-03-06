@@ -6,3 +6,4 @@
 *.tiff
 *.txt
 *.pth
+scripts/__pycache__/*

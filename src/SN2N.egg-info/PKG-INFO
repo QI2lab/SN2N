@@ -1,0 +1,959 @@
+Metadata-Version: 2.4
+Name: SN2N
+Version: 0.3.2
+Summary: Self-inspired Noise2Noise for microscopy denoising.
+License: ## ODC Open Database License (ODbL)
+        
+        ### Preamble
+        
+        The Open Database License (ODbL) is a license agreement intended to
+        allow users to freely share, modify, and use this Database while
+        maintaining this same freedom for others. Many databases are covered by
+        copyright, and therefore this document licenses these rights. Some
+        jurisdictions, mainly in the European Union, have specific rights that
+        cover databases, and so the ODbL addresses these rights, too. Finally,
+        the ODbL is also an agreement in contract for users of this Database to
+        act in certain ways in return for accessing this Database.
+        
+        Databases can contain a wide variety of types of content (images,
+        audiovisual material, and sounds all in the same database, for example),
+        and so the ODbL only governs the rights over the Database, and not the
+        contents of the Database individually. Licensors should use the ODbL
+        together with another license for the contents, if the contents have a
+        single set of rights that uniformly covers all of the contents. If the
+        contents have multiple sets of different rights, Licensors should
+        describe what rights govern what contents together in the individual
+        record or in some other way that clarifies what rights apply. 
+        
+        Sometimes the contents of a database, or the database itself, can be
+        covered by other rights not addressed here (such as private contracts,
+        trade mark over the name, or privacy rights / data protection rights
+        over information in the contents), and so you are advised that you may
+        have to consult other documents or clear other rights before doing
+        activities not covered by this License.
+        
+        ------
+        
+        The Licensor (as defined below) 
+        
+        and 
+        
+        You (as defined below) 
+        
+        agree as follows: 
+        
+        ### 1.0 Definitions of Capitalised Words
+        
+        "Collective Database" - Means this Database in unmodified form as part
+        of a collection of independent databases in themselves that together are
+        assembled into a collective whole. A work that constitutes a Collective
+        Database will not be considered a Derivative Database.
+        
+        "Convey" - As a verb, means Using the Database, a Derivative Database,
+        or the Database as part of a Collective Database in any way that enables
+        a Person to make or receive copies of the Database or a Derivative
+        Database.  Conveying does not include interaction with a user through a
+        computer network, or creating and Using a Produced Work, where no
+        transfer of a copy of the Database or a Derivative Database occurs.
+        "Contents" - The contents of this Database, which includes the
+        information, independent works, or other material collected into the
+        Database. For example, the contents of the Database could be factual
+        data or works such as images, audiovisual material, text, or sounds.
+        
+        "Database" - A collection of material (the Contents) arranged in a
+        systematic or methodical way and individually accessible by electronic
+        or other means offered under the terms of this License.
+        
+        "Database Directive" - Means Directive 96/9/EC of the European
+        Parliament and of the Council of 11 March 1996 on the legal protection
+        of databases, as amended or succeeded.
+        
+        "Database Right" - Means rights resulting from the Chapter III ("sui
+        generis") rights in the Database Directive (as amended and as transposed
+        by member states), which includes the Extraction and Re-utilisation of
+        the whole or a Substantial part of the Contents, as well as any similar
+        rights available in the relevant jurisdiction under Section 10.4. 
+        
+        "Derivative Database" - Means a database based upon the Database, and
+        includes any translation, adaptation, arrangement, modification, or any
+        other alteration of the Database or of a Substantial part of the
+        Contents. This includes, but is not limited to, Extracting or
+        Re-utilising the whole or a Substantial part of the Contents in a new
+        Database.
+        
+        "Extraction" - Means the permanent or temporary transfer of all or a
+        Substantial part of the Contents to another medium by any means or in
+        any form.
+        
+        "License" - Means this license agreement and is both a license of rights
+        such as copyright and Database Rights and an agreement in contract.
+        
+        "Licensor" - Means the Person that offers the Database under the terms
+        of this License. 
+        
+        "Person" - Means a natural or legal person or a body of persons
+        corporate or incorporate.
+        
+        "Produced Work" -  a work (such as an image, audiovisual material, text,
+        or sounds) resulting from using the whole or a Substantial part of the
+        Contents (via a search or other query) from this Database, a Derivative
+        Database, or this Database as part of a Collective Database.  
+        
+        "Publicly" - means to Persons other than You or under Your control by
+        either more than 50% ownership or by the power to direct their
+        activities (such as contracting with an independent consultant). 
+        
+        "Re-utilisation" - means any form of making available to the public all
+        or a Substantial part of the Contents by the distribution of copies, by
+        renting, by online or other forms of transmission.
+        
+        "Substantial" - Means substantial in terms of quantity or quality or a
+        combination of both. The repeated and systematic Extraction or
+        Re-utilisation of insubstantial parts of the Contents may amount to the
+        Extraction or Re-utilisation of a Substantial part of the Contents.
+        
+        "Use" - As a verb, means doing any act that is restricted by copyright
+        or Database Rights whether in the original medium or any other; and
+        includes without limitation distributing, copying, publicly performing,
+        publicly displaying, and preparing derivative works of the Database, as
+        well as modifying the Database as may be technically necessary to use it
+        in a different mode or format. 
+        
+        "You" - Means a Person exercising rights under this License who has not
+        previously violated the terms of this License with respect to the
+        Database, or who has received express permission from the Licensor to
+        exercise rights under this License despite a previous violation.
+        
+        Words in the singular include the plural and vice versa.
+        
+        ### 2.0 What this License covers
+        
+        2.1. Legal effect of this document. This License is:
+        
+          a. A license of applicable copyright and neighbouring rights;
+        
+          b. A license of the Database Right; and
+        
+          c. An agreement in contract between You and the Licensor.
+        
+        2.2 Legal rights covered. This License covers the legal rights in the
+        Database, including:
+        
+          a. Copyright. Any copyright or neighbouring rights in the Database.
+          The copyright licensed includes any individual elements of the
+          Database, but does not cover the copyright over the Contents
+          independent of this Database. See Section 2.4 for details. Copyright
+          law varies between jurisdictions, but is likely to cover: the Database
+          model or schema, which is the structure, arrangement, and organisation
+          of the Database, and can also include the Database tables and table
+          indexes; the data entry and output sheets; and the Field names of
+          Contents stored in the Database;
+        
+          b. Database Rights. Database Rights only extend to the Extraction and
+          Re-utilisation of the whole or a Substantial part of the Contents.
+          Database Rights can apply even when there is no copyright over the
+          Database. Database Rights can also apply when the Contents are removed
+          from the Database and are selected and arranged in a way that would
+          not infringe any applicable copyright; and
+        
+          c. Contract. This is an agreement between You and the Licensor for
+          access to the Database. In return you agree to certain conditions of
+          use on this access as outlined in this License. 
+        
+        2.3 Rights not covered. 
+        
+          a. This License does not apply to computer programs used in the making
+          or operation of the Database; 
+        
+          b. This License does not cover any patents over the Contents or the
+          Database; and
+        
+          c. This License does not cover any trademarks associated with the
+          Database. 
+        
+        2.4 Relationship to Contents in the Database. The individual items of
+        the Contents contained in this Database may be covered by other rights,
+        including copyright, patent, data protection, privacy, or personality
+        rights, and this License does not cover any rights (other than Database
+        Rights or in contract) in individual Contents contained in the Database.
+        For example, if used on a Database of images (the Contents), this
+        License would not apply to copyright over individual images, which could
+        have their own separate licenses, or one single license covering all of
+        the rights over the images.  
+        
+        ### 3.0 Rights granted
+        
+        3.1 Subject to the terms and conditions of this License, the Licensor
+        grants to You a worldwide, royalty-free, non-exclusive, terminable (but
+        only under Section 9) license to Use the Database for the duration of
+        any applicable copyright and Database Rights. These rights explicitly
+        include commercial use, and do not exclude any field of endeavour. To
+        the extent possible in the relevant jurisdiction, these rights may be
+        exercised in all media and formats whether now known or created in the
+        future. 
+        
+        The rights granted cover, for example:
+        
+          a. Extraction and Re-utilisation of the whole or a Substantial part of
+          the Contents;
+        
+          b. Creation of Derivative Databases;
+        
+          c. Creation of Collective Databases;
+        
+          d. Creation of temporary or permanent reproductions by any means and
+          in any form, in whole or in part, including of any Derivative
+          Databases or as a part of Collective Databases; and
+        
+          e. Distribution, communication, display, lending, making available, or
+          performance to the public by any means and in any form, in whole or in
+          part, including of any Derivative Database or as a part of Collective
+          Databases.
+        
+        3.2 Compulsory license schemes. For the avoidance of doubt:
+        
+          a. Non-waivable compulsory license schemes. In those jurisdictions in
+          which the right to collect royalties through any statutory or
+          compulsory licensing scheme cannot be waived, the Licensor reserves
+          the exclusive right to collect such royalties for any exercise by You
+          of the rights granted under this License;
+        
+          b. Waivable compulsory license schemes. In those jurisdictions in
+          which the right to collect royalties through any statutory or
+          compulsory licensing scheme can be waived, the Licensor waives the
+          exclusive right to collect such royalties for any exercise by You of
+          the rights granted under this License; and,
+        
+          c. Voluntary license schemes. The Licensor waives the right to collect
+          royalties, whether individually or, in the event that the Licensor is
+          a member of a collecting society that administers voluntary licensing
+          schemes, via that society, from any exercise by You of the rights
+          granted under this License.
+        
+        3.3 The right to release the Database under different terms, or to stop
+        distributing or making available the Database, is reserved. Note that
+        this Database may be multiple-licensed, and so You may have the choice
+        of using alternative licenses for this Database. Subject to Section
+        10.4, all other rights not expressly granted by Licensor are reserved.
+        
+        ### 4.0 Conditions of Use
+        
+        4.1 The rights granted in Section 3 above are expressly made subject to
+        Your complying with the following conditions of use. These are important
+        conditions of this License, and if You fail to follow them, You will be
+        in material breach of its terms.
+        
+        4.2 Notices. If You Publicly Convey this Database, any Derivative
+        Database, or the Database as part of a Collective Database, then You
+        must: 
+        
+          a. Do so only under the terms of this License or another license
+          permitted under Section 4.4;
+        
+          b. Include a copy of this License (or, as applicable, a license
+          permitted under Section 4.4) or its Uniform Resource Identifier (URI)
+          with the Database or Derivative Database, including both in the
+          Database or Derivative Database and in any relevant documentation; and
+        
+          c. Keep intact any copyright or Database Right notices and notices
+          that refer to this License.
+        
+          d. If it is not possible to put the required notices in a particular
+          file due to its structure, then You must include the notices in a
+          location (such as a relevant directory) where users would be likely to
+          look for it.
+        
+        4.3 Notice for using output (Contents). Creating and Using a Produced
+        Work does not require the notice in Section 4.2. However, if you
+        Publicly Use a Produced Work, You must include a notice associated with
+        the Produced Work reasonably calculated to make any Person that uses,
+        views, accesses, interacts with, or is otherwise exposed to the Produced
+        Work aware that Content was obtained from the Database, Derivative
+        Database, or the Database as part of a Collective Database, and that it
+        is available under this License.
+        
+          a. Example notice. The following text will satisfy notice under
+          Section 4.3:
+        
+                Contains information from DATABASE NAME, which is made available
+                here under the Open Database License (ODbL).
+        
+        DATABASE NAME should be replaced with the name of the Database and a
+        hyperlink to the URI of the Database. "Open Database License" should
+        contain a hyperlink to the URI of the text of this License. If
+        hyperlinks are not possible, You should include the plain text of the
+        required URI's with the above notice.
+         
+        4.4 Share alike. 
+        
+          a. Any Derivative Database that You Publicly Use must be only under
+          the terms of: 
+        
+            i. This License;
+        
+            ii. A later version of this License similar in spirit to this
+              License; or
+        
+            iii. A compatible license. 
+        
+          If You license the Derivative Database under one of the licenses
+          mentioned in (iii), You must comply with the terms of that license. 
+        
+          b. For the avoidance of doubt, Extraction or Re-utilisation of the
+          whole or a Substantial part of the Contents into a new database is a
+          Derivative Database and must comply with Section 4.4. 
+        
+          c. Derivative Databases and Produced Works.  A Derivative Database is
+          Publicly Used and so must comply with Section 4.4. if a Produced Work
+          created from the Derivative Database is Publicly Used.
+        
+          d. Share Alike and additional Contents. For the avoidance of doubt,
+          You must not add Contents to Derivative Databases under Section 4.4 a
+          that are incompatible with the rights granted under this License. 
+        
+          e. Compatible licenses. Licensors may authorise a proxy to determine
+          compatible licenses under Section 4.4 a iii. If they do so, the
+          authorised proxy's public statement of acceptance of a compatible
+          license grants You permission to use the compatible license.
+        
+        
+        4.5 Limits of Share Alike.  The requirements of Section 4.4 do not apply
+        in the following:
+        
+          a. For the avoidance of doubt, You are not required to license
+          Collective Databases under this License if You incorporate this
+          Database or a Derivative Database in the collection, but this License
+          still applies to this Database or a Derivative Database as a part of
+          the Collective Database; 
+        
+          b. Using this Database, a Derivative Database, or this Database as
+          part of a Collective Database to create a Produced Work does not
+          create a Derivative Database for purposes of  Section 4.4; and
+        
+          c. Use of a Derivative Database internally within an organisation is
+          not to the public and therefore does not fall under the requirements
+          of Section 4.4.
+        
+        4.6 Access to Derivative Databases. If You Publicly Use a Derivative
+        Database or a Produced Work from a Derivative Database, You must also
+        offer to recipients of the Derivative Database or Produced Work a copy
+        in a machine readable form of:
+        
+          a. The entire Derivative Database; or
+        
+          b. A file containing all of the alterations made to the Database or
+          the method of making the alterations to the Database (such as an
+          algorithm), including any additional Contents, that make up all the
+          differences between the Database and the Derivative Database.
+        
+        The Derivative Database (under a.) or alteration file (under b.) must be
+        available at no more than a reasonable production cost for physical
+        distributions and free of charge if distributed over the internet.
+        
+        4.7 Technological measures and additional terms
+        
+          a. This License does not allow You to impose (except subject to
+          Section 4.7 b.)  any terms or any technological measures on the
+          Database, a Derivative Database, or the whole or a Substantial part of
+          the Contents that alter or restrict the terms of this License, or any
+          rights granted under it, or have the effect or intent of restricting
+          the ability of any person to exercise those rights.
+        
+          b. Parallel distribution. You may impose terms or technological
+          measures on the Database, a Derivative Database, or the whole or a
+          Substantial part of the Contents (a "Restricted Database") in
+          contravention of Section 4.74 a. only if You also make a copy of the
+          Database or a Derivative Database available to the recipient of the
+          Restricted Database:
+        
+            i. That is available without additional fee;
+        
+            ii. That is available in a medium that does not alter or restrict
+            the terms of this License, or any rights granted under it, or have
+            the effect or intent of restricting the ability of any person to
+            exercise those rights (an "Unrestricted Database"); and
+        
+            iii. The Unrestricted Database is at least as accessible to the
+            recipient as a practical matter as the Restricted Database.
+        
+          c. For the avoidance of doubt, You may place this Database or a
+          Derivative Database in an authenticated environment, behind a
+          password, or within a similar access control scheme provided that You
+          do not alter or restrict the terms of this License or any rights
+          granted under it or have the effect or intent of restricting the
+          ability of any person to exercise those rights. 
+        
+        4.8 Licensing of others. You may not sublicense the Database. Each time
+        You communicate the Database, the whole or Substantial part of the
+        Contents, or any Derivative Database to anyone else in any way, the
+        Licensor offers to the recipient a license to the Database on the same
+        terms and conditions as this License. You are not responsible for
+        enforcing compliance by third parties with this License, but You may
+        enforce any rights that You have over a Derivative Database. You are
+        solely responsible for any modifications of a Derivative Database made
+        by You or another Person at Your direction. You may not impose any
+        further restrictions on the exercise of the rights granted or affirmed
+        under this License.
+        
+        ### 5.0 Moral rights
+        
+        5.1 Moral rights. This section covers moral rights, including any rights
+        to be identified as the author of the Database or to object to treatment
+        that would otherwise prejudice the author's honour and reputation, or
+        any other derogatory treatment:
+        
+          a. For jurisdictions allowing waiver of moral rights, Licensor waives
+          all moral rights that Licensor may have in the Database to the fullest
+          extent possible by the law of the relevant jurisdiction under Section
+          10.4; 
+        
+          b. If waiver of moral rights under Section 5.1 a in the relevant
+          jurisdiction is not possible, Licensor agrees not to assert any moral
+          rights over the Database and waives all claims in moral rights to the
+          fullest extent possible by the law of the relevant jurisdiction under
+          Section 10.4; and
+        
+          c. For jurisdictions not allowing waiver or an agreement not to assert
+          moral rights under Section 5.1 a and b, the author may retain their
+          moral rights over certain aspects of the Database.
+        
+        Please note that some jurisdictions do not allow for the waiver of moral
+        rights, and so moral rights may still subsist over the Database in some
+        jurisdictions.
+        
+        ### 6.0 Fair dealing, Database exceptions, and other rights not affected 
+        
+        6.1 This License does not affect any rights that You or anyone else may
+        independently have under any applicable law to make any use of this
+        Database, including without limitation:
+        
+          a. Exceptions to the Database Right including: Extraction of Contents
+          from non-electronic Databases for private purposes, Extraction for
+          purposes of illustration for teaching or scientific research, and
+          Extraction or Re-utilisation for public security or an administrative
+          or judicial procedure. 
+        
+          b. Fair dealing, fair use, or any other legally recognised limitation
+          or exception to infringement of copyright or other applicable laws. 
+        
+        6.2 This License does not affect any rights of lawful users to Extract
+        and Re-utilise insubstantial parts of the Contents, evaluated
+        quantitatively or qualitatively, for any purposes whatsoever, including
+        creating a Derivative Database (subject to other rights over the
+        Contents, see Section 2.4). The repeated and systematic Extraction or
+        Re-utilisation of insubstantial parts of the Contents may however amount
+        to the Extraction or Re-utilisation of a Substantial part of the
+        Contents.
+        
+        ### 7.0 Warranties and Disclaimer
+        
+        7.1 The Database is licensed by the Licensor "as is" and without any
+        warranty of any kind, either express, implied, or arising by statute,
+        custom, course of dealing, or trade usage. Licensor specifically
+        disclaims any and all implied warranties or conditions of title,
+        non-infringement, accuracy or completeness, the presence or absence of
+        errors, fitness for a particular purpose, merchantability, or otherwise.
+        Some jurisdictions do not allow the exclusion of implied warranties, so
+        this exclusion may not apply to You.
+        
+        ### 8.0 Limitation of liability
+        
+        8.1 Subject to any liability that may not be excluded or limited by law,
+        the Licensor is not liable for, and expressly excludes, all liability
+        for loss or damage however and whenever caused to anyone by any use
+        under this License, whether by You or by anyone else, and whether caused
+        by any fault on the part of the Licensor or not. This exclusion of
+        liability includes, but is not limited to, any special, incidental,
+        consequential, punitive, or exemplary damages such as loss of revenue,
+        data, anticipated profits, and lost business. This exclusion applies
+        even if the Licensor has been advised of the possibility of such
+        damages.
+        
+        8.2 If liability may not be excluded by law, it is limited to actual and
+        direct financial loss to the extent it is caused by proved negligence on
+        the part of the Licensor.
+        
+        ### 9.0 Termination of Your rights under this License
+        
+        9.1 Any breach by You of the terms and conditions of this License
+        automatically terminates this License with immediate effect and without
+        notice to You. For the avoidance of doubt, Persons who have received the
+        Database, the whole or a Substantial part of the Contents, Derivative
+        Databases, or the Database as part of a Collective Database from You
+        under this License will not have their licenses terminated provided
+        their use is in full compliance with this License or a license granted
+        under Section 4.8 of this License.  Sections 1, 2, 7, 8, 9 and 10 will
+        survive any termination of this License.
+        
+        9.2 If You are not in breach of the terms of this License, the Licensor
+        will not terminate Your rights under it. 
+        
+        9.3 Unless terminated under Section 9.1, this License is granted to You
+        for the duration of applicable rights in the Database. 
+        
+        9.4 Reinstatement of rights. If you cease any breach of the terms and
+        conditions of this License, then your full rights under this License
+        will be reinstated:
+        
+          a. Provisionally and subject to permanent termination until the 60th
+          day after cessation of breach; 
+        
+          b. Permanently on the 60th day after cessation of breach unless
+          otherwise reasonably notified by the Licensor; or
+        
+          c.  Permanently if reasonably notified by the Licensor of the
+          violation, this is the first time You have received notice of
+          violation of this License from  the Licensor, and You cure the
+          violation prior to 30 days after your receipt of the notice.
+        
+        Persons subject to permanent termination of rights are not eligible to
+        be a recipient and receive a license under Section 4.8.
+        
+        9.5 Notwithstanding the above, Licensor reserves the right to release
+        the Database under different license terms or to stop distributing or
+        making available the Database. Releasing the Database under different
+        license terms or stopping the distribution of the Database will not
+        withdraw this License (or any other license that has been, or is
+        required to be, granted under the terms of this License), and this
+        License will continue in full force and effect unless terminated as
+        stated above.
+        
+        ### 10.0 General
+        
+        10.1 If any provision of this License is held to be invalid or
+        unenforceable, that must not affect the validity or enforceability of
+        the remainder of the terms and conditions of this License and each
+        remaining provision of this License shall be valid and enforced to the
+        fullest extent permitted by law. 
+        
+        10.2 This License is the entire agreement between the parties with
+        respect to the rights granted here over the Database. It replaces any
+        earlier understandings, agreements or representations with respect to
+        the Database. 
+        
+        10.3 If You are in breach of the terms of this License, You will not be
+        entitled to rely on the terms of this License or to complain of any
+        breach by the Licensor. 
+        
+        10.4 Choice of law. This License takes effect in and will be governed by
+        the laws of the relevant jurisdiction in which the License terms are
+        sought to be enforced. If the standard suite of rights granted under
+        applicable copyright law and Database Rights in the relevant
+        jurisdiction includes additional rights not granted under this License,
+        these additional rights are granted in this License in order to meet the
+        terms of this License.
+        
+Requires-Python: <3.13,>=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: imageio>=2.34
+Requires-Dist: networkx>=3.2
+Requires-Dist: numpy>=1.26
+Requires-Dist: packaging>=23.2
+Requires-Dist: Pillow>=10.0
+Requires-Dist: PyWavelets>=1.5
+Requires-Dist: scikit-image>=0.22
+Requires-Dist: scipy>=1.11
+Requires-Dist: tifffile>=2024.2.12
+Requires-Dist: torch>2.0
+Requires-Dist: tqdm>=4.66
+Requires-Dist: typing_extensions>=4.12
+Provides-Extra: dev
+Requires-Dist: pre-commit>=4.5.0; extra == "dev"
+Requires-Dist: ruff>=0.15.4; extra == "dev"
+Provides-Extra: cuda
+Requires-Dist: nvidia-cuda-runtime-cu12<12.8,>12.0; platform_system == "Linux" and extra == "cuda"
+Dynamic: license-file
+
+[![Github commit](https://img.shields.io/github/last-commit/WeisongZhao/SN2N)](https://github.com/WeisongZhao/SN2N/)
+[![Github All Releases](https://img.shields.io/github/downloads/WeisongZhao/SN2N/total.svg)](https://github.com/WeisongZhao/SN2N/releases/tag/v0.3.2/)
+[![License](https://img.shields.io/github/license/WeisongZhao/SN2N)](https://github.com/WeisongZhao/SN2N/blob/master/LICENSE/)
+[![paper](https://img.shields.io/badge/paper-nat.%20methods-black.svg)](https://www.nature.com/articles/s41592-024-02400-9/)
+[![releases](https://img.shields.io/badge/release-v0.3.5-FF6600.svg)](https://github.com/WeisongZhao/SN2N/releases/tag/v0.3.5/)
+<br>
+
+[![Twitter](https://img.shields.io/twitter/follow/QuLiying?label=liying)](https://twitter.com/QuLiying)
+[![Twitter](https://img.shields.io/twitter/follow/weisong_zhao?label=weisong)](https://twitter.com/weisong_zhao)
+[![GitHub stars](https://img.shields.io/github/stars/WeisongZhao/SN2N?style=social)](https://github.com/WeisongZhao/SN2N/) 
+
+
+
+<p>
+<h1 align="center">SN<font color="#FF6600">2</font>N</h1>
+<h5 align="center">Self-inspired learning to denoise for live-cell super-resolution microscopy.</h5>
+<h6 align="right">v0.3.5</h6>
+</p>
+
+
+
+
+
+<br>
+
+
+<p>
+<img src='./imgs/4color-small.gif' align="left" width=190>
+</p>
+<br>
+
+
+This repository is for our developed self-inspired Noise2Noise (SN2N) learning-to-denoise engine, and it will be in continued development. It is distributed as accompanying software for publication: [Liying Qu et al. Self-inspired learning for denoising live-cell super-resolution microscopy, 21, 1895–1908, Nature Methods (2024)](https://www.nature.com/articles/s41592-024-02400-9). Please cite SN2N in your publications, if it helps your research.
+
+<br><br><br>
+
+<div align="center">
+
+✨ [**Introduction**](#-Introduction) **|**  🔧 [**Installation**](#-Installation)  **|** 🚀 [**Overall**](#-Overall)**|** 🎨 [**Dataset**](#-Dataset) **|**  💻 [**Training**](#-Training) **|** ⚡ [**Inference**](#-Inference) **|** 🚩 [**Execution**](#-Execution) **|** 🏆 [**Models**](#-Models) **|**&#x1F308; [**Resources**](#-Resources)
+
+</div>
+
+---
+
+## Introduction
+
+<p>
+<img src='./imgs/SN2N-workflow.png' align="right" width=500>
+</p>
+
+Our SN2N is fully competitive with the supervised learning methods and overcomes the need for large dataset and clean ground-truth. **First**, we create a self-supervised data generation strategy based on super-resolution images' spatial redundancy, using a diagonal resampling step followed by a Fourier interpolation for single-frame Noise2Noise. **Second**, we have taken a step further by ushering in a self-constrained learning process to enhance the performance and data-efficiency. **Finally**, we provide a Patch2Patch data augmentation (random patch transformations in multiple dimensions) to further improve the data efficiency.
+
+
+## 🔧 Installation
+
+### Tested platform
+  - Python = 3.12, PyTorch > 2.0 (`CUDA > 12.0 and < 12.8`)
+
+### Dependencies 
+  - Python == 3.12
+  - PyTorch > 2.0
+  - CUDA > 12.0 and < 12.8
+    
+### Instruction
+
+1. Clone the repository.
+
+    ```bash
+    git clone https://github.com/WeisongZhao/SN2N.git
+    cd SN2N    
+    ```
+
+2. Create a virtual environment and install dependencies from `pyproject.toml`.
+
+    ```bash
+    $ conda create -n SN2N python=3.12
+    $ conda activate SN2N
+
+    # install runtime dependencies from pyproject.toml
+    $ pip install -e .
+
+    # optional: enable development hooks (ruff + pre-commit)
+    $ pip install -e .[dev]
+    $ pre-commit install
+    ```
+
+3. Install a CUDA-enabled PyTorch wheel matching your environment (CUDA > 12.0 and < 12.8), then verify:
+
+    ```bash
+    $ python -c "import torch; print(torch.__version__, torch.version.cuda)"
+    ```
+## 🚀 Overall
+
+We have **two execution modes** for SN2N: The first one is step by step, which involves (**dataset generation, training, and then inference.**)  The second one is directly invoking (**SN2Nexecute.**)
+
+We have provided **two examples** of denoising in 2D and 3D, along with the datasets used for training and validation of SN2N. The 2D dataset consists of synthenic microtubules, represented by 2048 x 2048 pixels with a 32.5 nm pixel size. **The 2D dataset can be found at 'examples/denoising2D/data' path.** The 3D dataset consists of outer mitochondrial membrane (OMM) network imaging of live COS-7 cells labeled with Tom20-mCherry on SD-SIM sysytem. **The 3D dataset** has a size of 101 * 1478 * 1137 pixels, with a pixel size of 38.23 nm, and  **is avaliable  at** [https://zenodo.org/records/12697244/files/c12_SR_w1L-561_t1.tif?download=1.](https://zenodo.org/records/12697244/files/c12_SR_w1L-561_t1.tif?download=1.)
+
+
+## 🎨 Dataset
+### 0. Percentile normalization for data under ultralow SNR (optional)
+
+For the ultralow SNR data with ultrahigh baseline signal and a number of hot pixels, we adapted the routinely used percentile normalization before the data generation step to remove the smooth background or hot pixels. 
+
+There are **two ways to execute percentile normalization**.  One option is to utilize the **percentile normalization Fiji plugin, available for easy access:** https://github.com/WeisongZhao/percentile_normalization.imagej. Users can directly remove the ultra-strong baseline signal before training using this ready-to-use plugin. Alternatively, users can employ the following **Python scripts** for percentile normalization.
+
+```
+---------import package--------
+import tifffile
+import numpy as np
+from SN2N.utils import *
+
+---------parameter------------
+## pmin and pmax represent mapping the data range to a specified percentage range.
+## In the most applications, the pmin and pmax were assigned as 0% and 99.999%.
+## For ultralow SNR data, we set pmin and pmax as 20% and 99.9%, respectively.
+
+pmin = 30
+pmax = 99.8
+imgpath = 'raw.tif'
+save_path = 'raw_per.tif'
+
+image_data = tifffile.imread(imgpath)
+
+## 3D percentile normalization
+try:
+    [t, x, y] = image_data.shape
+    for tt in range(t):
+        image_data_single = image_data[tt, :, :] 
+        image_data_single = np.squeeze(image_data_single)
+        image_data_single1 = normalize_percentage(x = image_data_single, pmin = pmin, pmax = pmax, axis=None, clip=True, eps=1e-20, dtype=np.float32)
+        image_data_single2 = 255*image_data_single1
+        tifffile.imsave(save_path, image_data_single2.astype('uint8'))
+        
+## 2D percentile normalization        
+except ValueError:
+        image_data = tifffile.imread(imgpath)
+        image_data = normalize_percentage(x = image_data, pmin = pmin, pmax = pmax, axis=None, clip=True, eps=1e-20, dtype=np.float32)
+        image_data = 255*image_data
+        tifffile.imsave(save_path, image_data)        
+    
+print("Data preprocessing is completed.")
+```
+
+
+### 1. Self-supervised data generation
+Our SN2N is adaptable to both 2D (**xy**) and 3D (**xyz**) datasets. You can use your own data or our uploaded to generate 2D / 3D SN2N data pairs. 
+
+Users can run the script after customizing parameters in Script_SN2N_datagen_2D.py (Script_SN2N_datagen_3D.py) or run directly from the command line.
+
+#### 2D data generation
+```
+python -m Script_SN2N_datagen_2D.py --img_path "Users own path/data/raw_data" --P2Pmode "1" --P2Pup "1" --BAmode "1" --SWsize "64"        
+```
+
+#### 3D data generation
+```
+python -m Script_SN2N_datagen_3D.py --img_path "Users own path/data/raw_data" --P2Pmode "1" --P2Pup "1" --BAmode "1" --SWsize "64"    
+```
+
+#### Parameters instructions
+
+The key parameters for 2D data generation and 3D data generation are consistent. There are also other parameters that do not require user modification. Detailed explanations can be found in the SN2N.get_options.datagen2D / SN2N.get_options.datagen3D function. 
+
+```
+    -----Parameters------
+    =====Important==========
+    img_path:
+        Path of raw images to train.
+    P2Pmode(0 ~ 3):
+        Augmentation mode for Patch2Patch.
+        0: NONE; 
+        1: Direct interchange in t;
+        2: Interchange in single frame;
+        3: Interchange in multiple frame but in different regions;
+        {default: 0}
+    P2Pup:
+        Increase the dataset to its (1 + P2Pup) times size.
+        {default: 0}
+    BAmode(0 ~ 2):
+        Basic augmentation mode.
+        0: NONE; 
+        1: double the dataset with random rotate&flip;
+        2: eightfold the dataset with random rotate&flip;
+        {default: 0} 
+    SWsize:
+        Interval pixel of sliding window for generating image pathes.
+        {default: 64}
+        
+    ======Other parameters do not require modification; ======
+    ======for details, refer to SN2N.get_options.========
+    
+```
+
+## 💻 Training 
+
+### 1. Prepare the data  
+
+You can use SN2N data pairs for SN2N learning
+
+### 2. Start training
+
+Users can run the script after customizing parameters in Script_SN2N_trainer_2D.py (Script_SN2N_trainer_3D.py) or run directly from the command line.
+
+#### 2D data training
+
+```
+python -m Script_SN2N_trainer_2D.py --img_path "Users own path/data/raw_data" --sn2n_loss "1" --bs "32" --lr "2e-4" --epochs "100"
+```
+
+#### 3D data training
+
+```
+python -m Script_SN2N_trainer_3D.py --img_path "Users own path/data/raw_data" --sn2n_loss "1" --bs "4" --lr "2e-4" --epochs "100" 
+```
+
+#### Parameters instructions
+
+The key parameters for 2D trainer and 3D trainer are consistent. There are also other parameters that do not require user modification. Detailed explanations can be found in the SN2N.get_options.trainer2D/ SN2N.get_options.trainer3D function.
+
+```
+    -----Parameters------
+    =====Important==========
+    img_path:
+        Path of raw images to train.
+    sn2n_loss:
+        Weight of self-constrained loss.
+        {default: 1}
+    bs:
+        Training batch size.
+        {default: 32}
+    lr:
+        Learning rate
+        {default: 2e-4}.
+    epochs:
+        Total number of training epochs.
+        {default: 100}.
+        
+    ======Other parameters do not require modification; ======
+    ======for details, refer to SN2N.get_options.========
+    
+```
+
+## ⚡ Inference
+### 1. Prepare models
+
+Before inference, you should have trained your own model
+
+### 2. Test models
+
+Users can run the script after customizing parameters in Script_SN2N_inference_2D.py (Script_SN2N_inference_3D.py) or run directly from the command line.
+
+#### 2D inference
+
+  ```
+python -m Script_SN2N_inference_2D.py --img_path "Users own path/data/raw_data" --model_path "Users own path/data/model" --infer_mode "0"
+  ```
+
+#### 3D inference
+In 3D prediction tasks, we use the method of stitching predictions to avoid issues of memory overflow
+
+  ```
+  python -m Script_SN2N_inference_3D.py --img_path "Users own path/data/raw_data" --model_path "Users own path/data/model" --infer_mode "0" --overlap_shape "2,256,256"
+  ```
+
+#### Parameters instructions
+
+The key parameters for 2D inference and 3D inference are nearly consistent except for'overlap_shape'. There are also other parameters that do not require user modification. Detailed explanations can be found in the SN2N.get_options.Predict2D/ SN2N.get_options.Predict3D function.
+
+```
+    -----2D/3D inference Parameters------
+    img_path:
+        Path of raw images to inference
+    model_path:
+        Path of model for inference
+    infer_mode:
+        Prediction Mode
+        0: Predict the results of all models generated during training 
+        under the default "models" directory on the img_path.                
+        1: Predict the results of the models provided by the user under 
+        the given model_path on the Img_path provided by the user.
+        
+    -----3D execution unique Parameters------
+    overlap_shape:
+        Overlap shape in 3D stitching prediction.
+        {default: '2, 256, 256'}    
+```
+
+## 🚩 Execution
+
+### 1. Self-supervised data generation
+Our SN2N denoiser has been integrated into the SN2Nexecute.py function, allowing users to input their **allowing users to input their own parameters for denoising with just one click**.
+
+Users can run the script after **customizing parameters** in Script_SN2Nexecute_2D.py (Script_SN2Nexecute_3D.py).
+#### 2D execution
+```
+python -m Script_SN2Nexecute_2D.py --img_path "Users own path/data/raw_data" --P2Pmode "1" --P2Pup "1" --BAmode "1" --SWsize "64" --sn2n_loss "1" --bs "32" --lr "2e-4" --epochs "100" --model_path "Users own path/data/model" --infer_mode "0"
+```
+
+#### 3D execution
+```
+python -m Script_SN2Nexecute_3D.py --img_path "Users own path/data/raw_data" --P2Pmode "1" --P2Pup "1" --BAmode "1" --SWsize "64" --sn2n_loss "1" --bs "32" --lr "2e-4" --epochs "100" --model_path "Users own path/data/model" --infer_mode "0" --overlap_shape "2,256,256"
+```
+#### Parameters instructions
+
+The key parameters for 2D  execute and 3D execution are nearly consistent execept for 'overlap_shape'. There are also other parameters that do not require user modification. Detailed explanations can be found in the SN2N.get_options.execute2D / SN2N.get_options.execute 3D function. 
+
+```
+    -----2D/3D execution Parameters------
+    =====Important==========
+    img_path:
+        Path of raw images to train.
+    P2Pmode(0 ~ 3):
+        Augmentation mode for Patch2Patch.
+        0: NONE; 
+        1: Direct interchange in t;
+        2: Interchange in single frame;
+        3: Interchange in multiple frame but in different regions;
+        {default: 0}
+    P2Pup:
+        Increase the dataset to its (1 + P2Pup) times size.
+        {default: 0}
+    BAmode(0 ~ 2):
+        Basic augmentation mode.
+        0: NONE; 
+        1: double the dataset with random rotate&flip;
+        2: eightfold the dataset with random rotate&flip;
+        {default: 0} 
+    SWsize:
+        Interval pixel of sliding window for generating image pathes.
+        {default: 64}
+        sn2n_loss:
+        Weight of self-constrained loss.
+        {default: 1}
+    bs:
+        Training batch size.
+        {default: 32}
+    lr:
+        Learning rate
+        {default: 2e-4}.
+    epochs:
+        Total number of training epochs.
+        {default: 100}.
+    model_path:
+        Path of model for inference
+    infer_mode:
+        Prediction Mode
+        0: Predict the results of all models generated during training 
+        under the default "models" directory on the img_path.                
+        1: Predict the results of the models provided by the user under 
+        the given model_path on the Img_path provided by the user.
+        
+    -----3D execution unique Parameters------
+    overlap_shape:
+        Overlap shape in 3D stitching prediction.
+        {default: '2, 256, 256'} 
+        
+    ======Other parameters do not require modification; ======
+    ======for details, refer to SN2N.get_options.========
+    
+```
+
+## 🏆 Models
+
+We  have provided 12 generalized pre-trained models for specfic tasks and hope this will be helpful to the community.
+
+|            No.            | Data                                                         | Microscopy system | Pixel size | Network  |
+| :-----------------------: | ------------------------------------------------------------ | :---------------: | :--------: | :------: |
+|        1 (Fig. 2l)        | Fixed COS-7 cells of [lysosomes](https://zenodo.org/record/12518397/files/fixed_lysosomes_model_4_11_full.pth?download=1) labeled with LAMP1-EGFP. |      SD-SIM       |  32.5 nm   | 2D U-Net |
+|        2 (Fig. 2m)        | Fixed COS-7 cells of [mitochondria](https://zenodo.org/record/12518397/files/fixed_mito_model_4_8_full.pth?download=1) labeled with Tom20-mGold1. |      SD-SIM       |  32.5 nm   | 2D U-Net |
+|        3 (Fig. 4b)        | Live COS-7 cells of [mitochondria](https://zenodo.org/record/12518397/files/Live_mito_3D_model_5_26_full.pth?download=1) labeled with Tom20–mCherry. |      SD-SIM       |  38.23 nm  | 3D U-Net |
+|        4 (Fig. 4e)        | Live COS-7 cells of [mitochondria](https://zenodo.org/record/12518397/files/Live_mito_4D_model_5_31_full.pth?download=1) labeled with Tom20–mCherry. |      SD-SIM       |  38.23 nm  | 3D U-Net |
+|        5 (Fig. 4g)        | Live COS-7 cells, [mitochondria](https://zenodo.org/record/12518397/files/Live_mito_5D_model_10_31_full.pth?download=1) labeled with mGold-Mito-N-7, [ER](https://zenodo.org/record/12518397/files/Live_ER_5D_model_11_1_full.pth?download=1) labeled with DsRed-ER, and the [nucleus](https://zenodo.org/record/12518397/files/Live_nuclear_5D_model_11_1_full.pth?download=1) labeled with SPY650-DNA. |      SD-SIM       |  38.23 nm  | 3D U-Net |
+|        6 (Fig. 5g)        | Live COS-7 cells, [MT](https://zenodo.org/record/12518397/files/STED_live_MT_model_12_30_full.pth?download=1) labeled with SiR-Tubulin, [Actin](https://zenodo.org/record/12518397/files/STED_live_actin_model_5_10_full.pth?download=1) labeled with Lifeact-EGFP, and the [ER](https://zenodo.org/record/12518397/files/STED_live_ER_model_12_30_full.pth?download=1) labeled with Sec61β–EGFP. |       STED        |   15 nm    | 2D U-Net |
+| 7 (Extended Data Fig. 6a) | Live COS-7 cells, [ER](https://zenodo.org/record/12518397/files/Live_ER_exfig6_model_4_9_full.pth?download=1) labeled with Hoechst and the [mitochondira](https://zenodo.org/record/12518397/files/Live_mito_exfig6_model_4_10_full.pth?download=1) labeled with MitoTracker Deep Red. |   EMCCD SD-SIM    |   94 nm    | 3D U-Net |
+
+
+
+## Version
+
+- v0.3.1 add examples for both 2D denoising and 3D denoising, and integrate them into the SN2Nexecute function.
+- v0.2.8 reorder the core code
+- v0.1.0 initial version
+
+## &#x1F308; Resources: 
+
+- **Some fancy results and comparisons:** [Lab's website](https://weisongzhao.github.io/home/portfolio-4-col.html#SN2N)
+- **Preprint:** [Liying Qu et al. Self-inspired learning to denoise for live-cell super-resolution microscopy, bioRxiv (2024).](https://doi.org/10.1101/2024.01.23.576521)
+- **Percentile normalization plugin:** https://github.com/WeisongZhao/SN2N
+- **Publication:** [Liying Qu et al. Self-inspired learning for denoising live-cell super-resolution microscopy, 21, 1895–1908, Nature Methods (2024)](https://www.nature.com/articles/s41592-024-02400-9).
+
+## Open source [SN2N](https://github.com/WeisongZhao/SN2N)
+This software and corresponding methods can only be used for **non-commercial** use, and they are under Open Data Commons Open Database License v1.0.

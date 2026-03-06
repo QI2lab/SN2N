@@ -12,6 +12,31 @@ from SN2N.models import Unet_2d, Unet_3d
 from SN2N.utils import normalize
 
 
+def _to_unit_interval(data: np.ndarray) -> np.ndarray:
+    """Convert image-like data to float32 in the [0, 1] range.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        Input data.
+
+    Returns
+    -------
+    numpy.ndarray
+        Float32 array clipped to [0, 1].
+    """
+    arr = np.asarray(data)
+    if np.issubdtype(arr.dtype, np.integer):
+        denom = float(np.iinfo(arr.dtype).max)
+        if denom <= 0:
+            return np.zeros(arr.shape, dtype=np.float32)
+        arr = arr.astype(np.float32) / denom
+    else:
+        arr = arr.astype(np.float32, copy=False)
+    arr = np.nan_to_num(arr, nan=0.0, posinf=0.0, neginf=0.0)
+    return np.clip(arr, 0.0, 1.0)
+
+
 class net2D:
     def __init__(
         self,
@@ -392,7 +417,7 @@ class net3D:
             test_pred = test_pred.numpy()
             for i, item in enumerate(test_pred):
                 # item = normalize(item)
-                item = item / 255
+                item = np.clip(item, 0.0, 1.0)
                 tifffile.imwrite(
                     os.path.join(self.images_path, "epoch_%d.tif" % (epoch)), item
                 )
@@ -483,8 +508,8 @@ class net3D:
 
                     img_data_list_2 = np.array(img_data_list_2)
                     img_label_list_2 = np.array(img_label_list_2)
-                    img_data_list_2 = img_data_list_2 / 255
-                    img_label_list_2 = img_label_list_2 / 255
+                    img_data_list_2 = _to_unit_interval(img_data_list_2)
+                    img_label_list_2 = _to_unit_interval(img_label_list_2)
                     # img_data_list_2 = normalize(img_data_list_2)
                     # img_label_list_2 = normalize(img_label_list_2)
                     imgs_A[batchsize, 0, :, :, :] = img_data_list_2
@@ -507,9 +532,9 @@ class net3D:
         for taxial in range(t):
             img_tem = img[taxial, :, :]
             img_tem = np.squeeze(img_tem)
-            img_tem = img_tem / 255
+            img_tem = _to_unit_interval(img_tem)
             # img_tem = normalize(img_tem)
             img_list.append(img_tem)
-        img_list = np.array(img_tem)
-        imgs_A[:, :, :, :, :] = img
+        img_list = np.array(img_list, dtype=np.float32)
+        imgs_A[:, :, :, :, :] = img_list[np.newaxis, np.newaxis, :, :, :]
         yield imgs_A

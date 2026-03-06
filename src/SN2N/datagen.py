@@ -10,6 +10,39 @@ from tifffile import imwrite
 np.seterr(divide="ignore", invalid="ignore")
 
 
+def _normalize_to_255(image: np.ndarray) -> np.ndarray:
+    """Convert image intensities to float32 in the [0, 255] range.
+
+    Parameters
+    ----------
+    image : numpy.ndarray
+        Input image data.
+
+    Returns
+    -------
+    numpy.ndarray
+        Float32 data scaled to [0, 255].
+    """
+    image = np.asarray(image)
+    if np.issubdtype(image.dtype, np.integer):
+        denom = float(np.iinfo(image.dtype).max)
+        if denom <= 0:
+            return image.astype(np.float32)
+        return 255.0 * image.astype(np.float32) / denom
+
+    image = image.astype(np.float32, copy=False)
+    image = np.nan_to_num(image, nan=0.0, posinf=0.0, neginf=0.0)
+    image = np.clip(image, 0.0, None)
+    if image.size == 0:
+        return image
+    max_val = float(np.max(image))
+    if max_val <= 1.0:
+        return image * 255.0
+    if max_val > 255.0:
+        return image * (255.0 / max_val)
+    return image
+
+
 class generator2D:
     def __init__(
         self,
@@ -563,6 +596,8 @@ class generator3D:
         vol_patch="16,128,128",
         ifx2=True,
         inter_mode="Fourier",
+        patch_dtype="uint8",
+        patch_callback=None,
     ):
         """
         Self-inspired Noise2Noise
@@ -616,6 +651,15 @@ class generator3D:
             'Fourier': Fourier re-scaling;
             'bilinear': spatial re-scaling;
             {default: 'Fourier'}
+        patch_dtype:
+            Output dtype used when writing generated training patches.
+            Supported values: ``"uint8"``, ``"uint16"``, ``"float32"``.
+            {default: 'uint8'}
+        patch_callback:
+            Optional callable applied to each generated patch pair before saving.
+            It must take a float32 patch pair in ``[0, 1]`` and return an array
+            with the same shape.
+            {default: None}
                 ------
         """
 
@@ -640,6 +684,15 @@ class generator3D:
         self.ifx2 = ifx2
         self.inter_mode = inter_mode
         self.multi_frame = self.vol_patch[0]
+        self.patch_dtype = str(patch_dtype).lower()
+        if self.patch_dtype not in {"uint8", "uint16", "float32"}:
+            raise ValueError(
+                "patch_dtype must be one of {'uint8', 'uint16', 'float32'}, "
+                f"got {patch_dtype!r}."
+            )
+        if patch_callback is not None and not callable(patch_callback):
+            raise ValueError("patch_callback must be callable or None.")
+        self.patch_callback = patch_callback
 
     def execute(self, flage=1):
         """
@@ -671,17 +724,13 @@ class generator3D:
             print("For number %d frame" % (ll + 1))
             image_data_stack = tifffile.imread(datapath_list[ll])
 
-            image_data_stack_list = []
             [t, x, y] = image_data_stack.shape
             for tt in range(t - self.multi_frame):
-                image_data = image_data_stack[tt : tt + self.multi_frame, :, :]
-                image_data_stack_list.append(image_data)
-            image_data_stack_list = np.array(image_data_stack_list)
-
-            for ttt in range(t - self.multi_frame):
-                img_temp = np.squeeze(image_data_stack_list[ttt, :, :, :])
-                image_arr = self.slidingWindow3d(img_temp)
-                flage = self.savedata3d(image_arr, flage)
+                img_temp = np.squeeze(
+                    image_data_stack[tt : tt + self.multi_frame, :, :]
+                )
+                for patch in self.iter_slidingWindow3d(img_temp):
+                    flage = self.savedata3d(np.expand_dims(patch, axis=0), flage)
 
             if self.P2Pmode == 1 or self.P2Pmode == 3:
                 image_data_b = tifffile.imread(
@@ -699,20 +748,58 @@ class generator3D:
                         image_data_pre = self.random_interchange(
                             imga=image_data_pre, imgb=image_data_b
                         )
-                    image_data_stack_list_pre = []
                     for tt in range(t - self.multi_frame):
-                        image_data_pre = image_data_pre[
-                            tt : tt + self.multi_frame, :, :
-                        ]
-                        image_data_stack_list_pre.append(image_data_pre)
-                    image_data_stack_list_pre = np.array(image_data_stack_list)
-
-                    for ttt in range(t - self.multi_frame):
-                        img_temp = np.squeeze(image_data_stack_list_pre[ttt, :, :, :])
-                        image_arr = self.slidingWindow3d(img_temp)
-                        flage = self.savedata3d(image_arr, flage)
+                        img_temp = np.squeeze(
+                            image_data_pre[tt : tt + self.multi_frame, :, :]
+                        )
+                        for patch in self.iter_slidingWindow3d(img_temp):
+                            flage = self.savedata3d(
+                                np.expand_dims(patch, axis=0), flage
+                            )
 
         return
+
+    def iter_slidingWindow3d(self, image_data_stack):
+        """Yield accepted 3D patches one-by-one to reduce peak memory.
+
+        Parameters
+        ----------
+        image_data_stack : numpy.ndarray
+            Input data with shape ``(z, y, x)``.
+
+        Yields
+        ------
+        numpy.ndarray
+            Accepted patch with shape ``(z, patch_y, patch_x)``.
+        """
+        SWsize = self.SWsize
+        SWmode = self.SWmode
+        SWfilter = self.SWfilter
+        (t, h, w) = image_data_stack.shape
+        image_data_stack = _normalize_to_255(image_data_stack)
+        if SWmode == 0:
+            threshold_real = SWfilter
+        if SWmode == 1:
+            avg_list = []
+            for taxial in range(t):
+                img = image_data_stack[taxial, :, :]
+                avg = np.mean(img)
+                avg_list.append(avg)
+            avg_list = np.array(avg_list)
+            avg = np.mean(avg_list)
+            threshold_real = avg + SWfilter
+        bsize = self.vol_patch[1]
+        xx = int(np.floor(h - (bsize - SWsize)) / SWsize)
+        yy = int(np.floor(w - (bsize - SWsize)) / SWsize)
+        for i in range(1, (xx + 1)):
+            for j in range(1, (yy + 1)):
+                left1 = (j - 1) * SWsize
+                right1 = (j - 1) * SWsize + bsize
+                down = (i - 1) * SWsize
+                up = (i - 1) * SWsize + bsize
+                img = image_data_stack[:, down:up, left1:right1]
+                if np.sum(img[0]) > bsize * bsize * (threshold_real):
+                    yield img
 
     def block3d(self, image_stack):
         """
@@ -765,40 +852,7 @@ class generator3D:
         -------
         image_arr: patches with size (self.vol_patch)
         """
-        SWsize = self.SWsize
-        SWmode = self.SWmode
-        SWfilter = self.SWfilter
-        (t, h, w) = image_data_stack.shape
-        img_max = np.iinfo(image_data_stack.dtype).max
-        image_data_stack = 255 * image_data_stack.astype(np.float32) / img_max
-        # image_data_stack = 255*normalize(image_data_stack)
-        if SWmode == 0:
-            threshold_real = SWfilter
-        if SWmode == 1:
-            avg_list = []
-            for taxial in range(t):
-                img = image_data_stack[taxial, :, :]
-                avg = np.mean(img)
-                avg_list.append(avg)
-            avg_list = np.array(avg_list)
-            avg = np.mean(avg_list)
-            threshold_real = avg + SWfilter
-        bsize = self.vol_patch[1]
-
-        xx = int(np.floor(h - (bsize - SWsize)) / SWsize)
-        yy = int(np.floor(w - (bsize - SWsize)) / SWsize)
-
-        image_arr = []
-        for i in range(1, (xx + 1)):
-            for j in range(1, (yy + 1)):
-                left1 = (j - 1) * SWsize
-                right1 = (j - 1) * SWsize + bsize
-                down = (i - 1) * SWsize
-                up = (i - 1) * SWsize + bsize
-                img = image_data_stack[:, down:up, left1:right1]
-                if np.sum(img[0]) > bsize * bsize * (threshold_real):
-                    image_arr.append(img)
-        image_arr = np.array(image_arr)
+        image_arr = np.array(list(self.iter_slidingWindow3d(image_data_stack)))
         return image_arr
 
     def basic_augment(self, img_data, mode):
@@ -833,7 +887,7 @@ class generator3D:
     def savedata3d(self, image_stack, flage):
         """
         SN2N tool: TO save data
-            DATA structure: img, label (h, 2 x h) uint8
+            DATA structure: img, label (h, 2 x h), dtype configurable
         ------
         image_stack
             data TO save
@@ -924,9 +978,19 @@ class generator3D:
         [frame, t, x, y] = imgpart_list_copy.shape
         for f in range(frame):
             img = imgpart_list_copy[f, :, :, :]
-            img = img * 255
             if np.mean(img) > 0:
-                imwrite(("%s/%d.tif") % (self.dataset_path, flage), img.astype("uint8"))
+                if self.patch_callback is not None:
+                    callback_out = self.patch_callback(
+                        np.asarray(img, dtype=np.float32)
+                    )
+                    patch_out = np.asarray(callback_out, dtype=np.float32)
+                elif self.patch_dtype == "uint8":
+                    patch_out = np.clip(img * 255.0, 0.0, 255.0).astype(np.uint8)
+                elif self.patch_dtype == "uint16":
+                    patch_out = np.clip(img * 65535.0, 0.0, 65535.0).astype(np.uint16)
+                else:
+                    patch_out = np.clip(img, 0.0, 1.0).astype(np.float32)
+                imwrite(("%s/%d.tif") % (self.dataset_path, flage), patch_out)
                 flage = flage + 1
                 if flage % 100 == 0:
                     print("Saving training images:", flage)
